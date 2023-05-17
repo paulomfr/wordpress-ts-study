@@ -1,21 +1,23 @@
 {
 	"compilerOptions": {
+		"esModuleInterop": true,
 		// Note: Webpack config overrides this anyways
 		"outDir": "./build",
 		// React compatibility
-		"jsx": "react-jsx",
+		"jsx": "react",
 		// We want ESM supported in the output, because WebPack is going to bundle this anyways,
 		// and we want the tree-shaking support and some other benefits
-		"module": "ESNext",
-		"target": "ES6",
+		"module": "CommonJS",
+		"target": "ES5",
 		// == Now for some settings that are not *strictly* required, but I recommend:
 		// Embrace strong-typing!
-		"strict": true,
+		// "strict": true,
 		// Not strictly necessary, but nice
-		"allowSyntheticDefaultImports": true,
+		// "allowSyntheticDefaultImports": true,
 		// Recommended
-		"moduleResolution": "node",
+		// "moduleResolution": "node",
 
-		"sourceMap": true
+		"sourceMap": true,
+		"types": ["@types/wordpress__editor"]
 	},
 }

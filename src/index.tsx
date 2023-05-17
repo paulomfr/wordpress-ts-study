@@ -1,31 +1,29 @@
-import { FC } from 'react';
+import React from 'react';
 import { useSelect } from '@wordpress/data';
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginSidebar } from '@wordpress/edit-post';
+import { PluginSidebar } from "@wordpress/edit-post";
+import { __ } from "@wordpress/i18n";
+import { registerPlugin } from "@wordpress/plugins";
 
-import {ifCondition} from '@wordpress/compose'
+const Plugin = () => {
+	const postType = useSelect(
+		(select) => select('core/editor').getCurrentPostAttribute('type'),
+		[]
+	);
 
-interface EditorSelector {
-  getCurrentPostType: () => string;
+	console.log('postType', postType);
+
+	return (
+		<PluginSidebar
+			name="collab-plugin-example"
+			title={__('Plugin Example', 'collaborar-plugin')}
+			icon="smiley"
+		>
+			Custom plugin sidebar
+		</PluginSidebar>
+	)
 }
 
-type Select = (selector: string) => EditorSelector;
-
-const ExamplePlugin: FC = () => (
-	<PluginSidebar name="collaborar-example-plugin" title="Example Plugin" icon="smiley">
-		Current: post
-	</PluginSidebar>
-);
-
-export const ConditionalExamplePlugin = ifCondition(() => {
-	const { postType } = useSelect((select: Select) => ({
-		postType: select('core/editor').getCurrentPostType(),
-	}), []);
-
-  return postType === 'post';
-})(ExamplePlugin);
-
-registerPlugin('collaborar-example-plugin', {
-  render: ConditionalExamplePlugin,
+registerPlugin('collab-plugin-example', {
+	render: Plugin,
 	icon: 'smiley'
-});
+})
