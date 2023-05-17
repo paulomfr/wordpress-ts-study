@@ -5,12 +5,7 @@ import { __ } from "@wordpress/i18n";
 import { registerPlugin } from "@wordpress/plugins";
 
 const Plugin = () => {
-	const postType = useSelect(
-		(select) => select('core/editor').getCurrentPostAttribute('type'),
-		[]
-	);
-
-	console.log('postType', postType);
+	const postType = useSelect(select => select('core/editor').getCurrentPostType(), []);
 
 	return (
 		<PluginSidebar
@@ -18,7 +13,7 @@ const Plugin = () => {
 			title={__('Plugin Example', 'collaborar-plugin')}
 			icon="smiley"
 		>
-			Custom plugin sidebar
+			{`Current Post Type: ${postType}`}
 		</PluginSidebar>
 	)
 }
