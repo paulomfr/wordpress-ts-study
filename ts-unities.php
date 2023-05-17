@@ -19,19 +19,20 @@
  * @see https://developer.wordpress.org/block-editor/how-to-guides/plugin-sidebar-0/
  */
 function sidebar_plugin_register() {
-	// $asset = require __DIR__ . '/build/main.assets.php';
+	$asset = (require  plugin_dir_path(__FILE__) . 'build/main.asset.php');
 
-	var_dump(plugin_dir_path(__FILE__));
-	die();
-
-	// wp_register_script(
-	// 		'collaborar.plugin.ts-unities.js',
-	// 		plugins_url( 'build/main.js', __FILE__ ),
-	// 		$asset['dependencies'],
-	// 		$asset['version'],
-	// );
+	wp_register_script(
+			'collaborar.plugin.ts-unities.js',
+			plugins_url( 'build/main.js', __FILE__ ),
+			$asset['dependencies'],
+	);
 }
 add_action( 'init', 'sidebar_plugin_register' );
+
+function sidebar_plugin_script_enqueue() {
+	wp_enqueue_script( 'collaborar.plugin.ts-unities.js' );
+}
+add_action( 'enqueue_block_editor_assets', 'sidebar_plugin_script_enqueue' );
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
